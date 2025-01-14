@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{{appType}} | Car Project</title>
+
+    <meta name="description" content="Example Monolith">
+    <meta name="author" content="@hepidad">
+
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+
+  </head>
+  <body>
+
+  <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Monolith | Car Project</h1>
+                <h3>Demo:
+                        <a href="{{url_for('createcar')}}">Create</a>
+                        /
+                        <a href="{{url_for('readcar')}}">Read</a>
+                        /
+                        <a href="{{url_for('updatecar')}}">Update</a>
+                        /
+                        <a href="{{url_for('deletecar')}}">Delete</a>
+                        /
+                        <a href="{{url_for('searchcar')}}">Search</a>
+                        /
+                        <a href="{{url_for('help')}}">Help</a>
+                        /
+						            <a href="{{url_for('importcsv')}}">Import</a>
+                </h3> 
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h4>Search Car Data</h4>
+                <form action="{{ url_for('searchcarresults') }}" method="POST">
+                  <label for="searchQuery">Search by Name, Brand, Model, or Price:</label>
+                  <input type="text" id="searchQuery" name="searchQuery" required>
+                  <button type="submit">Search</button>
+              </form>
+              {% if results %}
+    <label>Search Results:</label>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Name</th>
+          <th scope="col">Brand</th>
+          <th scope="col">Model</th>
+          <th scope="col">Price (USD)</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for car in results %}
+        <tr>
+          <td>{{car.id}}</td>
+          <td>{{car.carname}}</td>   
+          <td>{{car.carbrand}}</td>
+          <td>{{car.carmodel}}</td>
+          <td>{{car.carprice}}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    {% elif searchQuery %}
+        <p>No results found for "{{ searchQuery }}"</p>
+    {% endif %}
+            </div>
+            
+        </div>
+  </div>
+    <script src="../static/js/bootstrap.min.js"></script>
+  </body>
+</html>
